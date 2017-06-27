@@ -342,6 +342,8 @@ class AztecPostViewController: UIViewController, PostEditor {
     ///
     fileprivate var htmlPostProcessors = [Processor]()
 
+    /// UI Interaction
+    fileprivate let actionsThatDontCloseTheEditor: [PostEditorAction] = [.save, .update]
 
     // MARK: - Initializers
 
@@ -765,10 +767,13 @@ extension AztecPostViewController {
 // MARK: - Actions
 //
 extension AztecPostViewController {
+
     @IBAction func publishButtonTapped(sender: UIBarButtonItem) {
         trackPostSave(stat: postEditorStateContext.publishActionAnalyticsStat)
 
-        publishTapped(dismissWhenDone: true)
+        let dismissWhenDone = !actionsThatDontCloseTheEditor.contains(postEditorStateContext.action)
+
+        publishTapped(dismissWhenDone: dismissWhenDone)
     }
 
     @IBAction func secondaryPublishButtonTapped(dismissWhenDone: Bool = true) {
