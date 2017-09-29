@@ -46,6 +46,7 @@ target 'WordPress' do
   pod 'lottie-ios', '1.5.1'
   pod 'Starscream', '2.1.1'
   pod 'GoogleSignIn', '4.0.2'
+  pod 'Helpshift', '6.2.0'
 
   # --------------------
   # WordPress components
@@ -65,24 +66,23 @@ target 'WordPress' do
     pod 'Expecta', '1.0.6'
     pod 'Nimble', '~> 7.0.0'
   end
-
-  target 'WordPressShareExtension' do
-    inherit! :search_paths
-
-    shared_with_all_pods
-    shared_with_networking_pods
-
-    pod 'WordPressComKit', :git => 'https://github.com/Automattic/WordPressComKit.git', :tag => '0.0.6'
-  end
-
-  target 'WordPressTodayWidget' do
-    inherit! :search_paths
-
-    shared_with_all_pods
-    shared_with_networking_pods
-  end
 end
 
+target 'WordPressShareExtension' do
+  project 'WordPress/WordPress.xcodeproj'
+
+  shared_with_all_pods
+  shared_with_networking_pods
+
+  pod 'WordPressComKit', :git => 'https://github.com/Automattic/WordPressComKit.git', :tag => '0.0.6'
+end
+
+target 'WordPressTodayWidget' do
+  project 'WordPress/WordPress.xcodeproj'
+
+  shared_with_all_pods
+  shared_with_networking_pods
+end
 
 target 'WordPressComStatsiOS' do
   project 'WordPressComStatsiOS/WordPressComStatsiOS.xcodeproj'
